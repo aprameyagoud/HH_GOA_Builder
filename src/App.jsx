@@ -10,6 +10,7 @@ import {
   buildTeamFrameSvg, 
   svgToCanvasBlob 
 } from './lib/svgTemplateEngine';
+import goaLogo from './assets/goa.svg';
 
 function App() {
   const [selectedFormat, setSelectedFormat] = useState(null);
@@ -108,61 +109,141 @@ function App() {
   };
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '0 auto', paddingBottom: '4rem' }}>
+    <div
+      style={{ maxWidth: "1200px", margin: "0 auto", paddingBottom: "4rem" }}
+    >
       {/* Top Event Branding Header */}
-      <header style={{ marginBottom: '2.5rem', textAlign: 'center' }}>
-        <div style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '0.8rem',
-          backgroundColor: 'var(--hh-black)',
-          padding: '0.3rem 1rem',
-          border: '2px solid var(--hh-yellow)',
-          marginBottom: '1rem'
-        }}>
-          <span style={{ color: 'var(--hh-yellow)', fontSize: '0.8rem', fontWeight: 700, fontFamily: 'Victor Mono' }}>
+      <header style={{ marginBottom: "2.5rem", textAlign: "center" }}>
+        <div
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.8rem",
+            backgroundColor: "var(--hh-black)",
+            padding: "0.3rem 1rem",
+            border: "2px solid var(--hh-yellow)",
+            marginBottom: "1rem",
+          }}
+        >
+          <span
+            style={{
+              color: "var(--hh-yellow)",
+              fontSize: "0.8rem",
+              fontWeight: 700,
+              fontFamily: "Victor Mono",
+            }}
+          >
             GOA, INDIA · 28–31 OCT 2026
           </span>
-          <span style={{ color: 'var(--hh-magenta)', fontWeight: 900 }}>·</span>
-          <span style={{ color: 'var(--hh-white)', fontSize: '0.8rem', fontFamily: 'Victor Mono' }}>
+          <span style={{ color: "var(--hh-magenta)", fontWeight: 900 }}>·</span>
+          <span
+            style={{
+              color: "var(--hh-white)",
+              fontSize: "0.8rem",
+              fontFamily: "Victor Mono",
+            }}
+          >
             2:47 PM STUDIO
           </span>
         </div>
 
-        <div style={{ position: 'relative', display: 'inline-block', width: '100%', maxWidth: '800px' }}>
-          <h1 style={{
-            fontFamily: 'Imbue, serif',
-            fontWeight: 900,
-            fontSize: 'clamp(3.5rem, 9vw, 6.5rem)',
-            color: 'var(--hh-yellow)',
-            lineHeight: 0.9,
-            marginBottom: '0.5rem',
-            letterSpacing: '1px'
-          }}>
+        <div
+          style={{
+            position: "relative",
+            width: "100%",
+            maxWidth: "1250px",
+            margin: "0 auto",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "250px",
+          }}
+        >
+          {/* Main heading */}
+          <h1
+            style={{
+              fontFamily: "Imbue, serif",
+              fontWeight: 900,
+              fontSize: "clamp(5rem, 12vw, 11rem)",
+              color: "var(--hh-yellow)",
+              lineHeight: 0.85,
+              margin: 0,
+              letterSpacing: "1px",
+              whiteSpace: "nowrap",
+              position: "relative",
+              zIndex: 1,
+            }}
+          >
             FRAME YOUR GOA.
           </h1>
+
+          {/* Floating Goa logo */}
+          <img
+            src={goaLogo}
+            alt="Goa"
+            style={{
+              position: "absolute",
+
+              /* horizontally centered */
+              left: "50%",
+
+              /* vertically centered on the actual heading */
+              top: "48%",
+
+              width: "clamp(75px, 9vw, 135px)",
+              height: "auto",
+
+              transform: "translate(-50%, -50%) rotate(-3deg)",
+
+              zIndex: 2,
+              pointerEvents: "none",
+
+              /* floating animation */
+              animation: "goaFloat 3s ease-in-out infinite",
+            }}
+          />
+
+          {/* Floating animation */}
+          <style>
+            {`
+      @keyframes goaFloat {
+        0%, 100% {
+          transform: translate(-50%, -50%) rotate(-3deg);
+        }
+
+        50% {
+          transform: translate(-50%, calc(-50% - 10px)) rotate(2deg);
+        }
+      }
+    `}
+          </style>
         </div>
 
-        <p style={{
-          fontFamily: 'Victor Mono',
-          fontSize: 'clamp(1rem, 2.5vw, 1.25rem)',
-          maxWidth: '680px',
-          margin: '0 auto 1rem auto',
-          color: 'var(--hh-white)',
-          fontWeight: 500
-        }}>
-          Turn your photo into an official HH Goa 2026 PFP, Builder ID or Team Frame.
+        <p
+          style={{
+            fontFamily: "Victor Mono",
+            fontSize: "clamp(1rem, 2.5vw, 1.25rem)",
+            maxWidth: "680px",
+            margin: "0 auto 1rem auto",
+            color: "var(--hh-white)",
+            fontWeight: 500,
+          }}
+        >
+          Turn your photo into an official HH Goa 2026 PFP, Builder ID or Team
+          Frame.
         </p>
 
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          gap: '1.2rem',
-          fontSize: '0.8rem',
-          fontFamily: 'Victor Mono',
-          color: 'var(--hh-cream)',
-          opacity: 0.9
-        }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "1.2rem",
+            fontSize: "0.8rem",
+            fontFamily: "Victor Mono",
+            color: "var(--hh-cream)",
+            opacity: 0.9,
+          }}
+        >
           <span>✦ No account</span>
           <span>✦ Instant generation</span>
           <span>✦ #FrameInGoa</span>
@@ -173,35 +254,66 @@ function App() {
       {!selectedFormat ? (
         <FormatSelector onSelect={handleSelectFormat} />
       ) : (
-        <div style={{ maxWidth: '850px', margin: '0 auto' }}>
+        <div style={{ maxWidth: "850px", margin: "0 auto" }}>
           {/* Top Bar */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-            <button 
-              onClick={handleReset} 
-              style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: "1.5rem",
+            }}
+          >
+            <button
+              onClick={handleReset}
+              style={{ padding: "0.5rem 1rem", fontSize: "0.85rem" }}
             >
               ← CHANGE FORMAT
             </button>
-            <div style={{
-              backgroundColor: 'var(--hh-magenta)',
-              color: 'var(--hh-white)',
-              padding: '0.3rem 0.8rem',
-              fontFamily: 'Victor Mono',
-              fontWeight: 700,
-              fontSize: '0.85rem'
-            }}>
-              {selectedFormat === 'pfp' ? 'PFP FRAME (1080×1080)' : selectedFormat === 'builder_id' ? 'BUILDER ID (1200×675)' : 'TEAM FRAME (1200×675)'}
+            <div
+              style={{
+                backgroundColor: "var(--hh-magenta)",
+                color: "var(--hh-white)",
+                padding: "0.3rem 0.8rem",
+                fontFamily: "Victor Mono",
+                fontWeight: 700,
+                fontSize: "0.85rem",
+              }}
+            >
+              {selectedFormat === "pfp"
+                ? "PFP FRAME (1080×1080)"
+                : selectedFormat === "builder_id"
+                  ? "BUILDER ID (1200×675)"
+                  : "TEAM FRAME (1200×675)"}
             </div>
           </div>
 
           {/* Generator Workspace Card */}
-          <div className="card" style={{ backgroundColor: 'rgba(0, 0, 0, 0.45)', borderColor: 'var(--hh-yellow)' }}>
-            <h2 style={{ fontSize: '2.5rem', color: 'var(--hh-yellow)', marginBottom: '1.5rem', borderBottom: '2px solid var(--hh-yellow)', paddingBottom: '0.5rem' }}>
-              {selectedFormat === 'pfp' ? 'PFP FRAME' : selectedFormat === 'builder_id' ? 'BUILDER ID' : 'TEAM FRAME'}
+          <div
+            className="card"
+            style={{
+              backgroundColor: "rgba(0, 0, 0, 0.45)",
+              borderColor: "var(--hh-yellow)",
+            }}
+          >
+            <h2
+              style={{
+                fontSize: "2.5rem",
+                color: "var(--hh-yellow)",
+                marginBottom: "1.5rem",
+                borderBottom: "2px solid var(--hh-yellow)",
+                paddingBottom: "0.5rem",
+              }}
+            >
+              {selectedFormat === "pfp"
+                ? "PFP FRAME"
+                : selectedFormat === "builder_id"
+                  ? "BUILDER ID"
+                  : "TEAM FRAME"}
             </h2>
 
             {/* Photo Upload & Pan/Zoom Controls */}
-            <UploadView 
+            <UploadView
               photoDataUrl={photoDataUrl}
               onPhotoSelected={setPhotoDataUrl}
               crop={crop}
@@ -210,14 +322,14 @@ function App() {
             />
 
             {/* Form Fields */}
-            <EditorForm 
+            <EditorForm
               format={selectedFormat}
               formData={formData}
               onChange={setFormData}
             />
 
             {/* Live Output & Action Area */}
-            <PreviewShare 
+            <PreviewShare
               blob={generatedBlob}
               previewSvg={previewSvg}
               format={selectedFormat}
@@ -228,18 +340,22 @@ function App() {
       )}
 
       {/* Footer */}
-      <footer style={{
-        marginTop: '4rem',
-        textAlign: 'center',
-        borderTop: '2px solid rgba(254, 225, 1, 0.3)',
-        paddingTop: '2rem',
-        fontFamily: 'Victor Mono',
-        fontSize: '0.8rem',
-        color: 'var(--hh-cream)',
-        opacity: 0.8
-      }}>
+      <footer
+        style={{
+          marginTop: "4rem",
+          textAlign: "center",
+          borderTop: "2px solid rgba(254, 225, 1, 0.3)",
+          paddingTop: "2rem",
+          fontFamily: "Victor Mono",
+          fontSize: "0.8rem",
+          color: "var(--hh-cream)",
+          opacity: 0.8,
+        }}
+      >
         <p>HACKER HOUSE GOA · 28–31 OCT 2026 · 2:47 PM STUDIO</p>
-        <p style={{ marginTop: '0.3rem', color: 'var(--hh-yellow)' }}>LESS NOISE. MORE SIGNAL. #FrameInGoa</p>
+        <p style={{ marginTop: "0.3rem", color: "var(--hh-yellow)" }}>
+          LESS NOISE. MORE SIGNAL. #FrameInGoa
+        </p>
       </footer>
     </div>
   );
