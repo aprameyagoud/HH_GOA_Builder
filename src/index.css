@@ -1,0 +1,120 @@
+:root {
+  --hh-yellow: #FEE101;
+  --hh-magenta: #FF0080;
+  --hh-dark-green: #004121;
+  --hh-green: #005a30; /* a slightly lighter variant if needed, or stick to dark */
+  --hh-white: #ffffff;
+  --hh-black: #000000;
+  --hh-cream: #FDF9EC;
+
+  font-family: 'Victor Mono', monospace;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light;
+  color: var(--hh-black);
+  background-color: var(--hh-dark-green);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--hh-dark-green);
+  color: var(--hh-white);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Imbue', serif;
+  margin: 0;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  width: 100%;
+}
+
+a {
+  font-weight: 500;
+  color: var(--hh-yellow);
+  text-decoration: inherit;
+}
+a:hover {
+  color: var(--hh-magenta);
+}
+
+/* Base button style matching HH Goa poster vibe */
+button {
+  background-color: var(--hh-yellow);
+  color: var(--hh-black);
+  border: 2px solid var(--hh-black);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 700;
+  font-family: 'Victor Mono', monospace;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  box-shadow: 4px 4px 0px var(--hh-black);
+  text-transform: uppercase;
+}
+
+button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--hh-black);
+}
+
+button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--hh-black);
+}
+
+button.primary {
+  background-color: var(--hh-magenta);
+  color: var(--hh-white);
+}
+
+/* Card style for the format selector */
+.card {
+  background-color: var(--hh-cream);
+  border: 2px solid var(--hh-black);
+  padding: 2rem;
+  box-shadow: 6px 6px 0px var(--hh-black);
+  color: var(--hh-black);
+  text-align: left;
+  border-radius: 0;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 2px solid var(--hh-black);
+  font-family: 'Victor Mono', monospace;
+  font-size: 1rem;
+  box-sizing: border-box;
+  background-color: var(--hh-white);
+  color: var(--hh-black);
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--hh-magenta);
+  box-shadow: 2px 2px 0px var(--hh-magenta);
+}
+
+@media (max-width: 768px) {
+  #root {
+    padding: 1rem;
+  }
+}
