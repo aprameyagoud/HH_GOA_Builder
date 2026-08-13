@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,900&display=swap');
 :root {
   --hh-yellow: #FEE101;
   --hh-magenta: #FF0080;
-  --hh-dark-green: #004121;
-  --hh-green: #005a30; /* a slightly lighter variant if needed, or stick to dark */
+  --hh-dark-green: #016030;
+  --hh-green: #19945d; /* a slightly lighter variant if needed, or stick to dark */
   --hh-white: #ffffff;
   --hh-black: #000000;
   --hh-cream: #FDF9EC;
@@ -35,6 +36,36 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
   font-weight: 400;
   text-transform: uppercase;
+}
+
+.goa-hero {
+  position: relative;
+  min-height: 850px;
+  overflow: hidden;
+  background: var(--hh-green);
+  color: var(--hh-yellow);
+}
+
+.goa-stripe {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+
+  background: repeating-linear-gradient(
+    135deg,
+    #2f7d32 0px,
+    #2f7d32 18px,
+    #174c2c 18px,
+    #174c2c 36px
+  );
+}
+
+.goa-stripe-top {
+  width: 120%;
+  height: 100px;
+  top: -35px;
+  left: -10%;
+  transform: rotate(-5deg);
 }
 
 #root {
