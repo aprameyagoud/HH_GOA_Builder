@@ -110,7 +110,8 @@ function App() {
 
   return (
     <div
-      style={{ maxWidth: "1200px", margin: "0 auto", paddingBottom: "4rem" }}
+      className="app-container"
+      style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", padding: "0 24px 4rem" }}
     >
       {/* Top Event Branding Header */}
       <header style={{ marginBottom: "2.5rem", textAlign: "center" }}>
@@ -161,6 +162,7 @@ function App() {
         >
           {/* Main heading */}
           <h1
+            className="hero-title"
             style={{
               fontFamily: "Imbue, serif",
               fontWeight: 900,
@@ -184,6 +186,7 @@ function App() {
 
           {/* Floating Goa logo */}
           <img
+            className="goa-logo"
             src={goaLogo}
             alt="Goa"
             style={{

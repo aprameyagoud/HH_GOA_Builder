@@ -149,3 +149,64 @@ button.primary {
     padding: 1rem;
   }
 }
+
+/* ================================
+   RESPONSIVE BASE
+================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+button,
+input,
+textarea,
+select {
+  max-width: 100%;
+}
+
+@media (max-width: 600px) {
+  .app-container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+
+/* Mobile hero title */
+@media (max-width: 600px) {
+  .hero-title {
+    font-size: 3rem !important;
+    white-space: normal !important;
+    width: 100%;
+    text-align: center;
+    line-height: 0.9;
+  }
+}
+
+@media (max-width: 600px) {
+  .goa-logo {
+    width: 45px !important;
+  }
+}
