@@ -142,13 +142,14 @@ function EditorForm({ format, formData, onChange }) {
 
           <div>
             <label style={{ display: 'block', fontSize: '0.75rem', fontFamily: 'Victor Mono', color: 'var(--hh-yellow)', marginBottom: '0.2rem' }}>
-              QUOTE / ONE-LINER (OPTIONAL)
+              TAGLINE / QUOTE *
             </label>
             <input 
               className="input-field"
-              placeholder='e.g. "Some edgy tagline goes here."' 
+              placeholder='e.g. "LESS NOISE. MORE SIGNAL."' 
               value={formData.quote || ''} 
               onChange={(e) => handleChange('quote', e.target.value)} 
+              required
             />
           </div>
         </div>

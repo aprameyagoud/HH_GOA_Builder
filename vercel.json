@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/share/:id",
+      "destination": "/api/share-page?id=:id"
+    },
+    {
+      "source": "/api/image/:id",
+      "destination": "/api/image/:id"
+    }
+  ]
+}

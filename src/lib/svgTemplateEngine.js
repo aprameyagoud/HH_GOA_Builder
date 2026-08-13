@@ -75,7 +75,7 @@ export async function buildBuilderIdSvg({ photoDataUrl, crop, name, builderTitle
     const scale = crop?.scale || 1;
     const panX = crop?.x || 0;
     const panY = crop?.y || 0;
-    
+
     const newPattern = `
       <pattern id="pattern5_92_760" patternUnits="userSpaceOnUse" width="322" height="464" x="110" y="105.888">
         <g transform="translate(161, 232)">
@@ -196,23 +196,12 @@ export async function buildPfpSvg({ photoDataUrl, crop }) {
   // Remove demo image reference
   svg = svg.replace(/<image\s+id="image0_61_6017"[^>]*\/>/g, '');
 
-  // 2. Move the bird/parrot (pattern5, pattern8, or pattern1) behind the user photo circle
-  const rect5Match = svg.match(/<rect[^>]+fill="url\(#pattern5_61_6017\)"\/>/);
-  const rect8Match = svg.match(/<rect[^>]+fill="url\(#pattern8_61_6017\)"\/>/);
-  const rect1Match = svg.match(/<rect[^>]+fill="url\(#pattern1_61_6017\)"\/>/);
-  
-  if (rect5Match) svg = svg.replace(rect5Match[0], '');
-  if (rect8Match) svg = svg.replace(rect8Match[0], '');
-  if (rect1Match) svg = svg.replace(rect1Match[0], '');
-
-  const movedRects = [
-    rect5Match ? rect5Match[0] : '',
-    rect8Match ? rect8Match[0] : '',
-    rect1Match ? rect1Match[0] : ''
-  ].join('');
-
-  // Place them exactly before the user photo circle
-  svg = svg.replace('<circle cx="539.5"', movedRects + '<circle cx="539.5"');
+  // 2. Remove the bird/parrot illustration (pattern7, pattern5, pattern8, pattern1, pattern6) completely
+  svg = svg.replace(/<path[^>]+fill="url\(#pattern7_61_6017\)"[^>]*\/>/g, '');
+  svg.match(/<rect[^>]+fill="url\(#pattern5_61_6017\)"\/>/g)?.forEach(m => { svg = svg.replace(m, ''); });
+  svg.match(/<rect[^>]+fill="url\(#pattern8_61_6017\)"\/>/g)?.forEach(m => { svg = svg.replace(m, ''); });
+  svg.match(/<rect[^>]+fill="url\(#pattern1_61_6017\)"\/>/g)?.forEach(m => { svg = svg.replace(m, ''); });
+  svg = svg.replace(/<path[^>]+fill="url\(#pattern6_61_6190\)"[^>]*\/>/g, '');
 
   return svg;
 }
