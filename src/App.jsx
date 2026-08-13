@@ -110,7 +110,14 @@ function App() {
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto', paddingBottom: '4rem' }}>
       {/* Top Event Branding Header */}
-      <header style={{ marginBottom: '2.5rem', textAlign: 'center' }}>
+      <header style={{ 
+        marginBottom: '2.5rem', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+        textAlign: 'center',
+        width: '100%' 
+      }}>
         <div style={{
           display: 'inline-flex',
           alignItems: 'center',
@@ -118,7 +125,7 @@ function App() {
           backgroundColor: 'var(--hh-black)',
           padding: '0.3rem 1rem',
           border: '2px solid var(--hh-yellow)',
-          marginBottom: '1rem'
+          marginBottom: '1.25rem'
         }}>
           <span style={{ color: 'var(--hh-yellow)', fontSize: '0.8rem', fontWeight: 700, fontFamily: 'Victor Mono' }}>
             GOA, INDIA · 28–31 OCT 2026
@@ -129,19 +136,19 @@ function App() {
           </span>
         </div>
 
-        <div style={{ position: 'relative', display: 'inline-block', width: '100%', maxWidth: '800px' }}>
-          <h1 style={{
-            fontFamily: 'Imbue, serif',
-            fontWeight: 900,
-            fontSize: 'clamp(3.5rem, 9vw, 6.5rem)',
-            color: 'var(--hh-yellow)',
-            lineHeight: 0.9,
-            marginBottom: '0.5rem',
-            letterSpacing: '1px'
-          }}>
-            FRAME YOUR GOA.
-          </h1>
-        </div>
+        <h1 style={{
+          fontFamily: 'Imbue, serif',
+          fontWeight: 900,
+          fontSize: 'clamp(3.5rem, 9vw, 6.5rem)',
+          color: 'var(--hh-yellow)',
+          lineHeight: 0.9,
+          marginBottom: '0.75rem',
+          letterSpacing: '1px',
+          textAlign: 'center',
+          width: '100%'
+        }}>
+          FRAME YOUR GOA.
+        </h1>
 
         <p style={{
           fontFamily: 'Victor Mono',
