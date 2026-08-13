@@ -83,7 +83,7 @@ function EditorForm({ format, formData, onChange }) {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.8rem' }}>
             <div>
               <label style={{ display: 'block', fontSize: '0.75rem', fontFamily: 'Victor Mono', color: 'var(--hh-yellow)', marginBottom: '0.2rem' }}>
-                TEAM (OPTIONAL)
+                TEAM NAME 
               </label>
               <input 
                 className="input-field"
@@ -95,7 +95,7 @@ function EditorForm({ format, formData, onChange }) {
 
             <div>
               <label style={{ display: 'block', fontSize: '0.75rem', fontFamily: 'Victor Mono', color: 'var(--hh-yellow)', marginBottom: '0.2rem' }}>
-                X HANDLE (OPTIONAL)
+                X HANDLE 
               </label>
               <input 
                 className="input-field"

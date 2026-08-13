@@ -1,6 +1,5 @@
 // src/lib/svgTemplateEngine.js
 import QRCode from 'qrcode';
-import { fontStyles } from './fontsBase64.js';
 
 // Cache for loaded raw template SVGs
 const templateCache = {};
@@ -64,10 +63,7 @@ export function fileToDataUrl(file) {
 export async function buildBuilderIdSvg({ photoDataUrl, crop, name, builderTitle, stack, team, xHandle, qrText }) {
   let svg = await fetchTemplateSvg('Individual Final.svg');
 
-  // Inject embedded fonts
-  if (svg.includes('<defs>')) {
-    svg = svg.replace('<defs>', `<defs><style>${fontStyles}</style>`);
-  }
+  
 
   // 1. Photo in Postage Stamp Frame (x=110, y=105.888, w=322, h=464)
   const patternRegex = /<pattern\s+id="pattern5_92_760"[^>]*>[\s\S]*?<\/pattern>/;
@@ -156,10 +152,7 @@ export async function buildBuilderIdSvg({ photoDataUrl, crop, name, builderTitle
 export async function buildPfpSvg({ photoDataUrl, crop }) {
   let svg = await fetchTemplateSvg('PFPFInal.svg');
 
-  // Inject embedded fonts
-  if (svg.includes('<defs>')) {
-    svg = svg.replace('<defs>', `<defs><style>${fontStyles}</style>`);
-  }
+
 
   // 1. User photo in circular center region
   const patternRegex = /<pattern\s+id="pattern0_61_6017"[^>]*>[\s\S]*?<\/pattern>/;
@@ -210,10 +203,6 @@ export async function buildPfpSvg({ photoDataUrl, crop }) {
 export async function buildTeamFrameSvg({ photoDataUrl, crop, teamName, members, quote, qrText }) {
   let svg = await fetchTemplateSvg('teamFinal.svg');
 
-  // Inject embedded fonts
-  if (svg.includes('<defs>')) {
-    svg = svg.replace('<defs>', `<defs><style>${fontStyles}</style>`);
-  }
 
   // 1. Team Photo in Center Stamp Frame (x=349, y=84, w=461, h=317)
   const patternRegex = /<pattern\s+id="pattern10_99_2142"[^>]*>[\s\S]*?<\/pattern>/;

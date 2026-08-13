@@ -1,34 +1,46 @@
-import { useState, useEffect, useCallback } from 'react';
-import './index.css';
-import FormatSelector from './components/FormatSelector';
-import UploadView from './components/UploadView';
-import EditorForm from './components/EditorForm';
-import PreviewShare from './components/PreviewShare';
-import { 
-  buildBuilderIdSvg, 
-  buildPfpSvg, 
-  buildTeamFrameSvg, 
-  svgToCanvasBlob 
-} from './lib/svgTemplateEngine';
-import goaLogo from './assets/goa.svg';
+import { useState, useEffect, useCallback } from "react";
+import "./index.css";
+import FormatSelector from "./components/FormatSelector";
+import UploadView from "./components/UploadView";
+import EditorForm from "./components/EditorForm";
+import PreviewShare from "./components/PreviewShare";
+import {
+  buildBuilderIdSvg,
+  buildPfpSvg,
+  buildTeamFrameSvg,
+  svgToCanvasBlob,
+} from "./lib/svgTemplateEngine";
+import goaLogo from "./assets/goa.svg";
 
 function App() {
   const [selectedFormat, setSelectedFormat] = useState(null);
   const [photoDataUrl, setPhotoDataUrl] = useState(null);
   const [crop, setCrop] = useState({ scale: 1, x: 0, y: 0 });
   const [formData, setFormData] = useState({
-    name: '',
-    builderTitle: '',
-    stack: '',
-    teamName: '',
-    xHandle: '',
-    members: ['', '', ''],
-    quote: ''
+    name: "",
+    builderTitle: "",
+    stack: "",
+    teamName: "",
+    xHandle: "",
+    members: ["", "", ""],
+    quote: "",
   });
 
-  const [previewSvg, setPreviewSvg] = useState('');
+  const [previewSvg, setPreviewSvg] = useState("");
   const [generatedBlob, setGeneratedBlob] = useState(null);
   const [isGenerating, setIsGenerating] = useState(false);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setSelectedFormat(null);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
 
   // Set default sample photos when format is selected if no user photo
   const handleSelectFormat = async (formatId) => {
@@ -36,20 +48,25 @@ function App() {
     setCrop({ scale: 1, x: 0, y: 0 });
 
     if (!photoDataUrl) {
-      setPhotoDataUrl(null); // Keep it empty initially
+      setPhotoDataUrl(null);
     }
+
+    window.history.pushState({ format: formatId }, "", `?format=${formatId}`);
   };
 
   const renderCurrentGraphic = useCallback(async () => {
     if (!selectedFormat) return;
+
     setIsGenerating(true);
 
+    // rest of your existing code...
+
     try {
-      let svg = '';
+      let svg = "";
       let width = 1200;
       let height = 675;
 
-      if (selectedFormat === 'builder_id') {
+      if (selectedFormat === "builder_id") {
         width = 1200;
         height = 675;
         svg = await buildBuilderIdSvg({
@@ -60,16 +77,18 @@ function App() {
           stack: formData.stack,
           team: formData.teamName,
           xHandle: formData.xHandle,
-          qrText: formData.xHandle ? `https://x.com/${formData.xHandle.replace('@', '')}` : 'https://hhgoa.com'
+          qrText: formData.xHandle
+            ? `https://x.com/${formData.xHandle.replace("@", "")}`
+            : "https://hhgoa.com",
         });
-      } else if (selectedFormat === 'pfp') {
+      } else if (selectedFormat === "pfp") {
         width = 1080;
         height = 1080;
         svg = await buildPfpSvg({
           photoDataUrl,
-          crop
+          crop,
         });
-      } else if (selectedFormat === 'team_frame') {
+      } else if (selectedFormat === "team_frame") {
         width = 1200;
         height = 675;
         svg = await buildTeamFrameSvg({
@@ -78,7 +97,7 @@ function App() {
           teamName: formData.teamName,
           members: formData.members,
           quote: formData.quote,
-          qrText: 'https://hhgoa.com'
+          qrText: "https://hhgoa.com",
         });
       }
 
@@ -86,7 +105,7 @@ function App() {
       const blob = await svgToCanvasBlob(svg, width, height);
       setGeneratedBlob(blob);
     } catch (err) {
-      console.error('Render error:', err);
+      console.error("Render error:", err);
     } finally {
       setIsGenerating(false);
     }
@@ -104,14 +123,19 @@ function App() {
 
   const handleReset = () => {
     setSelectedFormat(null);
-    setPreviewSvg('');
+    setPreviewSvg("");
     setGeneratedBlob(null);
   };
 
   return (
     <div
       className="app-container"
-      style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", padding: "0 24px 4rem" }}
+      style={{
+        width: "100%",
+        maxWidth: "1200px",
+        margin: "0 auto",
+        padding: "0 24px 4rem",
+      }}
     >
       {/* Top Event Branding Header */}
       <header style={{ marginBottom: "2.5rem", textAlign: "center" }}>
@@ -262,84 +286,129 @@ function App() {
       {!selectedFormat ? (
         <FormatSelector onSelect={handleSelectFormat} />
       ) : (
-        <div style={{ maxWidth: '850px', width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
+        <div
+          style={{
+            maxWidth: "850px",
+            width: "100%",
+            margin: "0 auto",
+            boxSizing: "border-box",
+          }}
+        >
           {/* Generator Workspace Card */}
-          <div className="card" style={{ 
-            backgroundColor: 'rgba(0, 0, 0, 0.45)', 
-            borderColor: 'var(--hh-yellow)',
-            width: '100%',
-            boxSizing: 'border-box'
-          }}>
+          <div
+            className="card"
+            style={{
+              backgroundColor: "rgba(0, 0, 0, 0.45)",
+              borderColor: "var(--hh-yellow)",
+              width: "100%",
+              boxSizing: "border-box",
+            }}
+          >
             {/* Format / Editor Header Bar */}
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'space-between', 
-              alignItems: 'center', 
-              width: '100%',
-              marginBottom: '1.25rem',
-              flexWrap: 'wrap',
-              gap: '0.75rem',
-              boxSizing: 'border-box'
-            }}>
-              <button 
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
+                marginBottom: "1.25rem",
+                flexWrap: "wrap",
+                gap: "0.75rem",
+                boxSizing: "border-box",
+              }}
+            >
+              <button
                 type="button"
-                onClick={handleReset} 
-                style={{ 
-                  padding: '0.6rem 1.2rem', 
-                  fontSize: '0.85rem',
+                onClick={handleReset}
+                style={{
+                  padding: "0.6rem 1.2rem",
+                  fontSize: "0.85rem",
                   margin: 0,
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.4rem',
-                  flexShrink: 0
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.4rem",
+                  flexShrink: 0,
                 }}
               >
                 ← CHANGE FORMAT
               </button>
-              <div style={{
-                backgroundColor: 'var(--hh-magenta)',
-                color: 'var(--hh-white)',
-                padding: '0.5rem 1rem',
-                fontFamily: 'Victor Mono',
-                fontWeight: 700,
-                fontSize: '0.85rem',
-                border: '2px solid var(--hh-black)',
-                boxShadow: '4px 4px 0px var(--hh-black)',
-                letterSpacing: '0.5px',
-                flexShrink: 0
-              }}>
-                {selectedFormat === 'pfp' ? 'PFP FRAME (1080×1080)' : selectedFormat === 'builder_id' ? 'BUILDER ID (1200×675)' : 'TEAM FRAME (1200×675)'}
+              <div
+                style={{
+                  backgroundColor: "var(--hh-magenta)",
+                  color: "var(--hh-white)",
+                  padding: "0.5rem 1rem",
+                  fontFamily: "Victor Mono",
+                  fontWeight: 700,
+                  fontSize: "0.85rem",
+                  border: "2px solid var(--hh-black)",
+                  boxShadow: "4px 4px 0px var(--hh-black)",
+                  letterSpacing: "0.5px",
+                  flexShrink: 0,
+                }}
+              >
+                {selectedFormat === "pfp"
+                  ? "PFP FRAME (1080×1080)"
+                  : selectedFormat === "builder_id"
+                    ? "BUILDER ID (1200×675)"
+                    : "TEAM FRAME (1200×675)"}
               </div>
             </div>
 
-            <h2 style={{ fontSize: '2.5rem', color: 'var(--hh-yellow)', marginBottom: '1.5rem', borderBottom: '2px solid var(--hh-yellow)', paddingBottom: '0.5rem' }}>
-              {selectedFormat === 'pfp' ? 'PFP FRAME' : selectedFormat === 'builder_id' ? 'BUILDER ID' : 'TEAM FRAME'}
+            <h2
+              style={{
+                fontSize: "2.5rem",
+                color: "var(--hh-yellow)",
+                marginBottom: "1.5rem",
+                borderBottom: "2px solid var(--hh-yellow)",
+                paddingBottom: "0.5rem",
+              }}
+            >
+              {selectedFormat === "pfp"
+                ? "PFP FRAME"
+                : selectedFormat === "builder_id"
+                  ? "BUILDER ID"
+                  : "TEAM FRAME"}
             </h2>
 
-            {/* Photo Upload & Pan/Zoom Controls */}
-            <UploadView
-              photoDataUrl={photoDataUrl}
-              onPhotoSelected={setPhotoDataUrl}
-              crop={crop}
-              onCropChange={setCrop}
-              format={selectedFormat}
-            />
+            <div className="editor-layout">
 
-            {/* Form Fields */}
-            <EditorForm
-              format={selectedFormat}
-              formData={formData}
-              onChange={setFormData}
-            />
+  {/* LEFT: Photo + Form */}
+  <div className="editor-controls">
 
-            {/* Live Output & Action Area */}
-            <PreviewShare
-              blob={generatedBlob}
-              previewSvg={previewSvg}
-              format={selectedFormat}
-              isGenerating={isGenerating}
-              onRenderCurrentGraphic={renderCurrentGraphic}
-            />
+    {/* Photo Upload & Pan/Zoom Controls */}
+    <UploadView
+      photoDataUrl={photoDataUrl}
+      onPhotoSelected={setPhotoDataUrl}
+      crop={crop}
+      onCropChange={setCrop}
+      format={selectedFormat}
+    />
+
+    {/* Form Fields */}
+    <EditorForm
+      format={selectedFormat}
+      formData={formData}
+      onChange={setFormData}
+    />
+
+  </div>
+
+  {/* RIGHT: Generated Output */}
+  <div className="editor-preview">
+
+    <PreviewShare
+      blob={generatedBlob}
+      previewSvg={previewSvg}
+      format={selectedFormat}
+      isGenerating={isGenerating}
+      onRenderCurrentGraphic={renderCurrentGraphic}
+      crop={crop}
+      onCropChange={setCrop}
+    />
+
+  </div>
+
+</div>
           </div>
         </div>
       )}
