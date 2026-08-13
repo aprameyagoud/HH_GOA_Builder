@@ -172,6 +172,11 @@ function App() {
               whiteSpace: "nowrap",
               position: "relative",
               zIndex: 1,
+
+              textShadow: `
+                4px 4px 0 #004121,
+                7px 7px 0 rgba(0, 65, 33, 0.7)
+              `,
             }}
           >
             FRAME YOUR GOA.
