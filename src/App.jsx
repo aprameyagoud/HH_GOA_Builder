@@ -181,48 +181,6 @@ function App() {
         <FormatSelector onSelect={handleSelectFormat} />
       ) : (
         <div style={{ maxWidth: '850px', width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
-          {/* Format / Editor Header Bar */}
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center', 
-            width: '100%',
-            marginBottom: '1.25rem',
-            flexWrap: 'wrap',
-            gap: '0.75rem',
-            boxSizing: 'border-box'
-          }}>
-            <button 
-              type="button"
-              onClick={handleReset} 
-              style={{ 
-                padding: '0.6rem 1.2rem', 
-                fontSize: '0.85rem',
-                margin: 0,
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.4rem',
-                flexShrink: 0
-              }}
-            >
-              ← CHANGE FORMAT
-            </button>
-            <div style={{
-              backgroundColor: 'var(--hh-magenta)',
-              color: 'var(--hh-white)',
-              padding: '0.5rem 1rem',
-              fontFamily: 'Victor Mono',
-              fontWeight: 700,
-              fontSize: '0.85rem',
-              border: '2px solid var(--hh-black)',
-              boxShadow: '4px 4px 0px var(--hh-black)',
-              letterSpacing: '0.5px',
-              flexShrink: 0
-            }}>
-              {selectedFormat === 'pfp' ? 'PFP FRAME (1080×1080)' : selectedFormat === 'builder_id' ? 'BUILDER ID (1200×675)' : 'TEAM FRAME (1200×675)'}
-            </div>
-          </div>
-
           {/* Generator Workspace Card */}
           <div className="card" style={{ 
             backgroundColor: 'rgba(0, 0, 0, 0.45)', 
@@ -230,6 +188,48 @@ function App() {
             width: '100%',
             boxSizing: 'border-box'
           }}>
+            {/* Format / Editor Header Bar */}
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'center', 
+              width: '100%',
+              marginBottom: '1.25rem',
+              flexWrap: 'wrap',
+              gap: '0.75rem',
+              boxSizing: 'border-box'
+            }}>
+              <button 
+                type="button"
+                onClick={handleReset} 
+                style={{ 
+                  padding: '0.6rem 1.2rem', 
+                  fontSize: '0.85rem',
+                  margin: 0,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  flexShrink: 0
+                }}
+              >
+                ← CHANGE FORMAT
+              </button>
+              <div style={{
+                backgroundColor: 'var(--hh-magenta)',
+                color: 'var(--hh-white)',
+                padding: '0.5rem 1rem',
+                fontFamily: 'Victor Mono',
+                fontWeight: 700,
+                fontSize: '0.85rem',
+                border: '2px solid var(--hh-black)',
+                boxShadow: '4px 4px 0px var(--hh-black)',
+                letterSpacing: '0.5px',
+                flexShrink: 0
+              }}>
+                {selectedFormat === 'pfp' ? 'PFP FRAME (1080×1080)' : selectedFormat === 'builder_id' ? 'BUILDER ID (1200×675)' : 'TEAM FRAME (1200×675)'}
+              </div>
+            </div>
+
             <h2 style={{ fontSize: '2.5rem', color: 'var(--hh-yellow)', marginBottom: '1.5rem', borderBottom: '2px solid var(--hh-yellow)', paddingBottom: '0.5rem' }}>
               {selectedFormat === 'pfp' ? 'PFP FRAME' : selectedFormat === 'builder_id' ? 'BUILDER ID' : 'TEAM FRAME'}
             </h2>

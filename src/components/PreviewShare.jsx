@@ -86,32 +86,7 @@ function PreviewShare({ blob, previewSvg, format, isGenerating, onRenderCurrentG
     const caption = getCaption();
     const filename = getFilename();
 
-    // OPTION 1: Native file sharing on supported mobile browsers
-    const file = new File([targetBlob], filename, { type: 'image/png' });
-
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      try {
-        setShareStep('opening');
-        await navigator.share({
-          files: [file],
-          title: 'HH Goa 2026',
-          text: caption
-        });
-        // Success or user completed
-        setShareStep('');
-        return;
-      } catch (err) {
-        if (err.name === 'AbortError') {
-          // User closed the share sheet normally - do not show error
-          setShareStep('');
-          return;
-        }
-        console.warn('Native share failed, proceeding to share-link fallback:', err);
-        // Continue to Option 2 fallback
-      }
-    }
-
-    // OPTION 2: Shareable Link with actual OG image
+    // ALWAYS generate a Shareable Link with actual OG image and open X intent
     setShareStep('preparing');
 
     let shareUrl = '';
